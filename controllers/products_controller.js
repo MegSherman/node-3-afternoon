@@ -11,7 +11,7 @@ module.exports = {
     },
 
     getOne: (req, res) => {
-        const {product_id} = req.body
+        const {product_id} = req.params
         const dbInstance = req.app.get ('db')
         dbInstance.read_product (product_id)
         .then (product => res.status(200).send(product))
@@ -28,10 +28,10 @@ module.exports = {
     },
 
     update: (req, res) => {
-        const {id} = req.body
-        const {description} = req.params
+        const {id} = req.params
+        const {desc} = req.query
         const dbInstance = req.app.get ('db')
-        dbInstance.update_product (id, description)
+        dbInstance.update_product (id, desc)
         .then (() => res.sendStatus(200))
         .catch (error => res.status(500).send({errorMessage: 'Cannot update product.'}))
         console.log (error)
